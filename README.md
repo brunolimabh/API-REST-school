@@ -31,7 +31,7 @@ VALUES
 ```
 
 ## 📃 Postman collection: 
-- **Link** https://mvnrepository.com/artifact/org.springframework/spring-web
+- **Link** https://github.com/brunolimabh/API-REST-school/blob/main/API%20REST%20school.postman_collection.json
 
 #### 🟨 Endpoint para criar professor
 - **Método HTTP:** POST
