@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "c30eb2d9-47ea-4362-97af-d6f4340ef116",
+		"name": "API REST school",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33591770"
+	},
+	"item": [
+		{
+			"name": "Teacher",
+			"item": [
+				{
+					"name": "Create Teacher",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Carlos\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{springb}}/teachers"
+					},
+					"response": []
+				},
+				{
+					"name": "List Teachers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{springb}}/teachers"
+					},
+					"response": []
+				},
+				{
+					"name": "List Teacher By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{springb}}/teachers"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Teacher",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{springb}}/teachers/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "Create Student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lucas\",\r\n    \"ra\": \"987\",\r\n    \"professorId\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{springb}}/students"
+					},
+					"response": []
+				},
+				{
+					"name": "List Students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{springb}}/students"
+					},
+					"response": []
+				},
+				{
+					"name": "List Student By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{springb}}/students/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Student",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{springb}}/students/1"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
