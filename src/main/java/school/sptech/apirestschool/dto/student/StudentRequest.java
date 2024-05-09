@@ -7,5 +7,6 @@ public class StudentRequest {
 
     private String ra;
     private String name;
+    private Integer professorId;
 
 }

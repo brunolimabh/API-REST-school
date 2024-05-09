@@ -7,6 +7,7 @@ import org.springframework.web.server.ResponseStatusException;
 import school.sptech.apirestschool.dto.student.StudentMapper;
 import school.sptech.apirestschool.dto.student.StudentRequest;
 import school.sptech.apirestschool.entity.Student;
+import school.sptech.apirestschool.entity.Teacher;
 import school.sptech.apirestschool.repository.StudentRepository;
 
 import java.util.List;
@@ -16,9 +17,11 @@ import java.util.List;
 public class StudentService {
 
     private final StudentRepository repository;
+    private final TeacherService teacherService;
 
     public Student create(StudentRequest request) {
-        Student entity = StudentMapper.toEntity(request);
+        Teacher teacher = teacherService.listById(request.getProfessorId());
+        Student entity = StudentMapper.toEntity(request, teacher);
         return repository.save(entity);
     }
 
