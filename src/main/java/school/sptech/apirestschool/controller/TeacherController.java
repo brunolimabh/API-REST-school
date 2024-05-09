@@ -2,6 +2,7 @@ package school.sptech.apirestschool.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,21 +26,28 @@ public class TeacherController {
     @PostMapping
     public ResponseEntity<TeacherResponse> create(
             @Valid @RequestBody TeacherRequest request) {
-        return ResponseEntity.created(null).body(
-                TeacherMapper.toDto(service.create(request)));
+        return ResponseEntity.created(null).body(TeacherMapper.toDto(
+                service.create(TeacherMapper.toEntity(request))));
     }
 
     @GetMapping()
     public ResponseEntity<List<TeacherResponse>> list() {
         List<Teacher> teachers = service.list();
-        if (teachers.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (teachers.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         return ResponseEntity.ok(TeacherMapper.toDto(teachers));
     }
 
-    @GetMapping(ControllerConstants.LIST_BY_ID)
+    @GetMapping(ControllerConstants.ID_PATH)
     public ResponseEntity<TeacherResponse> listById(
             @PathVariable Integer id) {
         return ResponseEntity.ok(TeacherMapper.toDto(service.listById(id)));
+    }
+
+    @DeleteMapping(ControllerConstants.ID_PATH)
+    public ResponseEntity<Void> remove(
+            @PathVariable int id) {
+        service.remove(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

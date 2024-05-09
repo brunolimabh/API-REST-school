@@ -7,13 +7,12 @@ import java.util.List;
 
 public class StudentMapper {
 
-    public static Student toEntity(StudentRequest dto, Teacher teacher) {
+    public static Student toEntity(StudentRequest dto) {
         if (dto == null) return null;
 
         Student entity = new Student();
         entity.setName(dto.getName());
         entity.setRa(dto.getRa());
-        entity.setTeacher(teacher);
         return entity;
     }
 

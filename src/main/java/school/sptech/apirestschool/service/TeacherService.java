@@ -1,13 +1,13 @@
 package school.sptech.apirestschool.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-import school.sptech.apirestschool.dto.teacher.TeacherMapper;
-import school.sptech.apirestschool.dto.teacher.TeacherRequest;
+import school.sptech.apirestschool.constants.ControllerConstants;
 import school.sptech.apirestschool.entity.Student;
 import school.sptech.apirestschool.entity.Teacher;
+import school.sptech.apirestschool.exception.NotFoundException;
+import school.sptech.apirestschool.exception.RemoveTeacherWithStudentException;
+import school.sptech.apirestschool.repository.StudentRepository;
 import school.sptech.apirestschool.repository.TeacherRepository;
 
 import java.util.List;
@@ -17,9 +17,9 @@ import java.util.List;
 public class TeacherService {
 
     private final TeacherRepository repository;
+    private final StudentRepository studentRepository;
 
-    public Teacher create(TeacherRequest request) {
-        Teacher entity = TeacherMapper.toEntity(request);
+    public Teacher create(Teacher entity) {
         return repository.save(entity);
     }
 
@@ -29,10 +29,14 @@ public class TeacherService {
 
     public Teacher listById(int id) {
         return repository.findById(id).orElseThrow(
-                () -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Aluno não encontrado")
-        );
+                () -> new NotFoundException(ControllerConstants.TEACHER_ENTITY));
+    }
+
+    public void remove(int id) {
+        Teacher teacher = listById(id);
+        List<Student> students = studentRepository.findByTeacherId(id);
+        if (!students.isEmpty()) throw new RemoveTeacherWithStudentException();
+        repository.delete(teacher);
     }
 
 }

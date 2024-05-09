@@ -25,21 +25,28 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<StudentResponse> create(
             @Valid @RequestBody StudentRequest request) {
-        return ResponseEntity.created(null).body(
-                StudentMapper.toDto(service.create(request)));
+        return ResponseEntity.created(null).body(StudentMapper.toDto(
+                service.create(StudentMapper.toEntity(request), request.getProfessorId())));
     }
 
     @GetMapping()
     public ResponseEntity<List<StudentResponse>> list() {
         List<Student> students = service.list();
-        if (students.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (students.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         return ResponseEntity.ok(StudentMapper.toDto(students));
     }
 
-    @GetMapping(ControllerConstants.LIST_BY_ID)
+    @GetMapping(ControllerConstants.ID_PATH)
     public ResponseEntity<StudentResponse> listById(
             @PathVariable Integer id) {
         return ResponseEntity.ok(StudentMapper.toDto(service.listById(id)));
+    }
+
+    @DeleteMapping(ControllerConstants.ID_PATH)
+    public ResponseEntity<Void> remove(
+            @PathVariable int id) {
+        service.remove(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
