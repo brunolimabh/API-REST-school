@@ -54,7 +54,7 @@ VALUES
 
 #### 🟥 Endpoint para remover um professor pelo id
 - **Método HTTP:** DELETE
-- **URL:** `http://localhost:8080/students/{id}`
+- **URL:** `http://localhost:8080/teachers/{id}`
 
 - #### 🟨 Endpoint para criar aluno
 - **Método HTTP:** POST
